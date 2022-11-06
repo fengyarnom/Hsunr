@@ -6,14 +6,21 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
 </head>
 <body>
-    <div class="header">
-        {% block header %}{% endblock %}
+    <div class="content">
+        <header>
+            <div class="nav-area">
+                {% block nav_area %}{% endblock %}
+            </div>
+
+        </header>
+
+        <div class="main">
+            {% block main %}{% endblock %}
+        </div>
+        <div class="footer">
+            {% block footer %}{% endblock %}
+        </div>
     </div>
-    <div class="main">
-        {% block main %}{% endblock %}
-    </div>
-    <div class="footer">
-        {% block footer %}{% endblock %}
-    </div>
+
 </body>
 </html>
