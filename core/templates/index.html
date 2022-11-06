@@ -4,10 +4,20 @@
   首页
 {% endblock %}
 
-{% block main %}
-  {% if name == "hello" %}
-    首页 {{name}}
-  {% else %}
-    BB {{name}}
-  {% endif %}
+{% block main_area %}
+  <div class="content_main">
+    {% block content_main %}
+
+    {% endblock %}
+  </div>
+
+  <div class="siderbar">
+    <div class="recent-posts">
+        <div class="header">
+            <div class="title">最近的文章</div>
+        </div>
+        <li>Hello</li>
+        <li>B</li>
+    </div>
+  </div>
 {% endblock %}

@@ -88,4 +88,125 @@ code {
   letter-spacing: 1.5px;
 }
 
+.siderbar .header .title {
+  display: flex;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 0.5em;
+}
+.siderbar .recent-posts {
+  padding: 1em;
+}
+.siderbar .recent-posts li {
+  list-style: none;
+  border-radius: 4px;
+  line-height: 18px;
+  padding: 0.5em 0em;
+  letter-spacing: 1.3px;
+}
+.siderbar .recent-posts li a {
+  text-decoration: none;
+  color: #3d3d3d;
+  word-break: break-word;
+}
+.siderbar .recent-posts li:hover {
+  font-weight: 700;
+}
+
+.article .post {
+  color: #3d3d3f;
+  font-size: 16px;
+  line-height: 1.7em;
+  border-bottom: 2px dashed #eee;
+  letter-spacing: 1px;
+  margin-bottom: 3em;
+  padding-bottom: 3em;
+}
+.article .post .title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  letter-spacing: 1.3px;
+}
+.article .post .title a {
+  color: #353c5a;
+  text-decoration: none;
+}
+.article .post .detail {
+  display: flex;
+  margin-bottom: 1em;
+}
+.article .post .detail .date {
+  color: #aaa;
+  font-size: 12px;
+  margin-right: 12px;
+}
+.article .post .detail .tags {
+  font-size: 12px;
+  margin-right: 12px;
+  color: #aaa;
+}
+.article .post .detail .tags a {
+  text-decoration: none;
+  color: #ada0a0;
+  padding: 5px;
+}
+.article .post .top {
+  margin-bottom: 0.8em;
+}
+.article .post .top span {
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #2c3e50;
+  color: white;
+  padding: 5px 18px;
+  border-radius: 4px;
+  letter-spacing: 2.5px;
+}
+.article .post .content {
+  white-space: pre-line;
+  color: #3d3d3f;
+  font-size: 16px;
+  line-height: 1.7em;
+  font-family: "roboto";
+}
+.article .post .content h1 {
+  font-size: 24px;
+  margin: 0;
+}
+.article .post .content h2 {
+  font-size: 22px;
+  margin: 0;
+}
+.article .post .content h3 {
+  font-size: 20px;
+  margin: 0;
+}
+.article .post .content h4 {
+  font-size: 18px;
+  margin: 0;
+}
+.article .post .content h5 {
+  font-size: 16px;
+  margin: 0;
+}
+.article .post .content h6 {
+  font-size: 15px;
+  margin: 0;
+}
+.article .post .content p {
+  margin: 0;
+}
+.article .post .content blockquote {
+  font-size: 1rem;
+  color: #999;
+  border-left: 0.2rem solid #dfe2e5;
+  margin: 1rem 0;
+  padding: 0.25rem 0 0.25rem 1rem;
+}
+.article .post .content img {
+  max-width: 100%;
+}
+
 /*# sourceMappingURL=main.css.map */
