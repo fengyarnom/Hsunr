@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - Yarnom</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+</head>
+<body>
+    <div class="header">
+        {% block header %}{% endblock %}
+    </div>
+    <div class="main">
+        {% block main %}{% endblock %}
+    </div>
+    <div class="footer">
+        {% block footer %}{% endblock %}
+    </div>
+</body>
+</html>
