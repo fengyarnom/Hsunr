@@ -1,9 +1,11 @@
-from .Db import DB_CTRL
-class Tag(DB_CTRL):
-    def __init__(self):
-        self.conn = super().connectDatabase()
+from .Db import get_db
+class TagModle():
+    def __init__(self,init=False):
+        self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['pid','name','count']
+        if init is True:
+            self.init_table()
     def init_table(self):
         sql = ("CREATE TABLE TAG("
            "pid         CHAR(50)  PRIMARY KEY       NOT NULL,"
@@ -13,7 +15,7 @@ class Tag(DB_CTRL):
 
         self.cursor.execute(sql)
         self.conn.commit()
-    
+        print(" - 已初始化 Tag 表")
     def insert(self,tag):
         sql = ("INSERT INTO TAG VALUES ("
                "'{pid}','{name}',{count})".format(

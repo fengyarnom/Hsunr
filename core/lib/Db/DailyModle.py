@@ -1,9 +1,11 @@
-from .Db import DB_CTRL
-class Daily(DB_CTRL):
-    def __init__(self):
-        self.conn = super().connectDatabase()
+from .Db import get_db
+class DailyModle():
+    def __init__(self,init=False):
+        self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['pid','title','content','create_date']
+        if init is True:
+            self.init_table()
     def init_table(self):
         sql = ("CREATE TABLE DAILY("
            "pid         CHAR(50)  PRIMARY KEY       NOT NULL,"
@@ -14,7 +16,7 @@ class Daily(DB_CTRL):
 
         self.cursor.execute(sql)
         self.conn.commit()
-
+        print(" - 已初始化 Daily 表")
     def insert(self,daily):
         sql = ("INSERT INTO DAILY VALUES ("
                "'{pid}','{title}','{content}','{create_date}')".format(

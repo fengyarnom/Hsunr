@@ -1,9 +1,12 @@
-from .Db import DB_CTRL
-class User(DB_CTRL):
-    def __init__(self):
-        self.conn = super().connectDatabase()
+from .Db import get_db
+class UserModle():
+    def __init__(self,init=False):
+        self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['id','username',"password","registration_time","permission"]
+
+        if init is True:
+            self.init_table()
     def init_table(self):
         sql = ("CREATE TABLE USER("
            "id                  CHAR(50)  PRIMARY KEY       NOT NULL,"
@@ -14,6 +17,7 @@ class User(DB_CTRL):
 
         self.cursor.execute(sql)
         self.conn.commit()
+        print(" - 已初始化 USER 表")
     def insert(self,user):
         sql = ("INSERT INTO USER VALUES ('{id}','{username}','{password}','{registration_time}',{permission})".format(
             id=user['id'],

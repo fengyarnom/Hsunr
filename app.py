@@ -1,8 +1,10 @@
-from flask import redirect, url_for
-from core import create_app,init_app
+from core import run
+
 
 if __name__ == '__main__':
-    app = create_app()
-    init_app()
+    run()
 
-    app.run(debug=True)
+
+
+
+

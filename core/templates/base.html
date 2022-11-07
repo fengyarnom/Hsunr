@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} - Yarnom</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-5.2.2/dist/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
 </head>
 <body>
@@ -25,4 +26,5 @@
     </div>
 
 </body>
+<script src="{{url_for('static',filename='css/bootstrap-5.2.2/dist/js/bootstrap.js')}}" crossorigin="anonymous"></script>
 </html>

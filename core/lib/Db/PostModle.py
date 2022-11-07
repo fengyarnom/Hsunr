@@ -1,9 +1,11 @@
-from .Db import DB_CTRL
-class Post(DB_CTRL):
-    def __init__(self):
-        self.conn = super().connectDatabase()
+from .Db import get_db
+class PostModle():
+    def __init__(self,init=False):
+        self.conn = get_db()
         self.cursor = self.conn.cursor()
-        self.format = ['pid','title','content','tags','author','create_date','views','isTop']
+        self.format = ['pid','title','content','tags','author','create_date','views','visible','isTop']
+        if init is True:
+            self.init_table()
     def init_table(self):
         sql = ("CREATE TABLE POST("
            "pid         CHAR(50)  PRIMARY KEY       NOT NULL,"
@@ -12,15 +14,16 @@ class Post(DB_CTRL):
            "tags        TEXT                        NOT NULL,"
            "author      CHAR(100)                   NOT NULL,"
            "create_date CHAR(50)                    NOT NULL," 
-           "views       INT                         NOT NULL,"     
+           "views       INT                         NOT NULL,"
+           "visible     INT                         NOT NULL,"    
            "is_top      INT                         NOT NULL);")
 
         self.cursor.execute(sql)
         self.conn.commit()
-
+        print(" - 已初始化 Post 表")
     def insert(self,post):
         sql = ("INSERT INTO Post VALUES ("
-               "'{pid}','{title}','{content}','{tags}','{author}','{create_date}',{views},{is_top})".format(
+               "'{pid}','{title}','{content}','{tags}','{author}','{create_date}',{views},{visible},{is_top})".format(
             pid=post['pid'],
             title=post['title'],
             content=post['content'],
@@ -28,6 +31,7 @@ class Post(DB_CTRL):
             create_date=post['create_date'],
             views=post['views'],
             tags=post['tags'],
+            visible=post['visible'],
             is_top=int(post['is_top'])))
         self.cursor.execute(sql)
         self.conn.commit()
