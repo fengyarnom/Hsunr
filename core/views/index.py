@@ -4,11 +4,10 @@ bp = Blueprint('index', __name__, url_prefix='/')
 
 @bp.route("/")
 @bp.route("/article")
-def index(name=None):
-
-    return render_template("article.html",name=name)
+def index():
+    return render_template("article.html")
 
 @bp.route("/daily")
-def daily(name=None):
+def daily():
 
-    return render_template("daily.html",name=name)
+    return render_template("daily.html")

@@ -1,3 +1,7 @@
 venv/
 .idea
 core/views/__pycache__/
+
+./config.json
+.idea
+__pycache__
