@@ -4,6 +4,7 @@ class TagModle():
         self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['pid','name','count']
+        self.table_name = "TAG"
         if init is True:
             self.init_table()
     def init_table(self):

@@ -1,0 +1,160 @@
+{% extends 'main.html' %}
+{% block title %}
+  编辑器
+{% endblock %}
+{% block main %}
+    <div id="editor">
+        <div id="warning_box" class="alert alert-warning alert-dismissible fade disvisible" role="alert">
+            <div id="pid" class="{{ post['pid'] }}"></div>
+            <div id="warning_box_text">
+                Default
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class= "header">
+            <input type="text" id="title_input"
+                   placeholder="请输入标题" value="{{ post['title'] }}">
+
+        </div>
+        <div class="content">
+            <textarea id="content_textarea">{{ post['content'] }}</textarea>
+        </div>
+        <div class="details">
+            <div class="tags">
+                <label class="form-label">请设置标签</label>
+                <input type="text" class="form-control" id="tag_input" value="{{ post['tags'] }}" \>
+                <div id="emailHelp" class="form-text">若是多标签形式，请在相隔处添加分号 ';' </div>
+            </div>
+            <div class="select">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" id="is_visible" type="checkbox" role="switch" {{ 'checked' if post['visible'] == 0 else ''}} >
+                    <label class="form-check-label" for="is_visible">设置该文章为不可见</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" id="is_top" type="checkbox" role="switch" {{ 'checked' if post['is_top'] == 1 else ''}} >
+                    <label class="form-check-label" for="is_top">置顶文章</label>
+                </div>
+            </div>
+            <div class="send">
+                <button type="button" class="btn btn-primary dropdown-toggle" id="send_button" onclick="click_send()">
+                    发布
+                </button>
+                 <ul class="dropdown-menu" id="dropdown_list">
+                    <li><a class="dropdown-item" key="post" onclick="send(this)">发布为文章</a></li>
+                    <li><a class="dropdown-item" key="daily" onclick="send(this)">发布为日记</a></li>
+                    <li><a class="dropdown-item" key="notice" onclick="send(this)">发布为通告</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        let max_hight = 300;
+        let dropdown_menu_show = false;
+        let old_selection = document.getElementById('content_textarea').selectionStart;
+        document.getElementById('content_textarea').addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                // set textarea value to: text before caret + tab + text after caret
+                this.value = this.value.substring(0, start) +
+                  "\t" + this.value.substring(end);
+
+                // put caret at right position again
+                this.selectionStart =
+                  this.selectionEnd = start + 1;
+            }
+            if (e.key === 'Enter') {
+                if(e.target.scrollHeight > max_hight){
+                    this.style.height = e.target.scrollHeight + 250 + 'px';
+                    max_hight = e.target.scrollHeight + 2;
+                }
+
+
+            }
+            if (e.key === 'Backspace') {
+                if(this.selectionStart < old_selection){
+                    if(e.target.scrollHeight > 300){
+                        this.style.height = (e.target.scrollHeight - 10) + 'px';
+                        max_hight = e.target.scrollHeight + 10
+                    }
+
+                }
+                old_selection = this.selectionStart;
+            }
+        });
+        function click_send() {
+            let dropdown_list = document.getElementById('dropdown_list')
+            if(!dropdown_menu_show){
+                dropdown_list.className = "dropdown-menu show";
+                dropdown_menu_show = true;
+            }else{
+                dropdown_list.className = "dropdown-menu";
+                dropdown_menu_show = false;
+            }
+
+        }
+        function send(element) {
+            let body = {
+                pid:document.getElementById('pid').className,
+                title : document.getElementById('title_input').value,
+                content : document.getElementById('content_textarea').value,
+                tags: document.getElementById('tag_input').value,
+                visible: !document.getElementById('is_visible').checked,
+                is_top:document.getElementById('is_top').checked
+            }
+
+            let key = element.getAttribute('key');
+            if(key === "daily" ){
+                body.tags = "日记"
+            }
+            else if(key === "notice"){
+                body.tags = "公告"
+            }
+
+            if(body.title === ''){
+                document.getElementById('warning_box').className ="alert alert-warning alert-dismissible fade show";
+                document.getElementById('warning_box_text').innerHTML="标题为空，将默认使用 <strong>『 无题 』</strong>替代";
+                document.getElementById('title_input').value="无题";
+                return 0;
+            }
+            if(body.content === ''){
+                document.getElementById('warning_box').className ="alert alert-warning alert-dismissible fade show";
+                document.getElementById('warning_box_text').innerHTML="<strong>内容为空</strong>，这是不希望被看到的</strong>替代";
+                return 0;
+            }
+            if(body.tags === ''){
+                body.tags = "默认"
+            }
+            fetch("/admin/editor", {
+                method: "POST",
+                headers: {"Content-type": "application/json;charset=utf-8; charset=UTF-8"},
+                body: JSON.stringify(body)
+            })
+            .then(response => response.json())
+            .then(retrun_data => {
+                if(retrun_data['code'] === 201){
+
+                     document.getElementById('warning_box').className ="alert alert-success alert-dismissible fade show";
+                     document.getElementById('warning_box_text').innerHTML=
+                         "<strong>创建文章成功</strong>，" +
+                         "你可以回到<a href='/admin'>后台首页</a>，" +
+                         "抑或是对刚提交的文章进行<a href='/admin/editor/"+retrun_data['data']+"'>修改</a>";
+                }
+                else if(retrun_data['code'] === 202){
+                    console.log(retrun_data)
+                     document.getElementById('warning_box').className ="alert alert-success alert-dismissible fade show";
+                     document.getElementById('warning_box_text').innerHTML=
+                         "<strong>修改文章成功</strong>，" +
+                         "你可以回到<a href='/admin'>后台首页</a>，" +
+                         "抑或是在本页面对刚提交的文章再次进行修改";
+                }
+            })
+        }
+     </script>
+{% endblock %}
+

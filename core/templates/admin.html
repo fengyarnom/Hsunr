@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% block title %}
+  后台
+{% endblock %}
+{% block main %}
+<div class="AdminView">
+    <div class="header">仪表板</div>
+    <div class="main">
+        <div class="overview">
+            <div class="header">
+                <div class="title"><h3>概述</h3></div>
+            </div>
+            <div class="content">
+                <a class="item" href="/admin/article/page/1">
+                    <div class="header">文章</div>
+                    <div class="number" id="article_count">{{ post_count }}</div>
+                    <div class="unit">篇</div>
+                </a>
+                <a class="item" href="/admin/daily/page/1">
+                    <div class="header">日记</div>
+                    <div class="number" id="daily_count">{{ daily_count }}</div>
+                    <div class="unit">段</div>
+                </a>
+                <a class="item" href="/admin/notice/page/1">
+                    <div class="header">通告</div>
+                    <div class="number" id="notice_count">{{ notice_count }}</div>
+                    <div class="unit">篇</div>
+                </a>
+            </div>
+            
+            
+        </div>
+        
+        
+        {% block table %}
+
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}

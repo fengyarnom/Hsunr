@@ -4,6 +4,7 @@ class UserModle():
         self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['id','username',"password","registration_time","permission"]
+        self.table_name = "USER"
 
         if init is True:
             self.init_table()

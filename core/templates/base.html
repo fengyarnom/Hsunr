@@ -2,7 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name= "description" content= "冯焱木的网站 · FengYarnom ' Websize · Yarnom ' Websize · Yarnom">
     <title>{% block title %}{% endblock %} - Yarnom</title>
+
+	<link rel="stylesheet" href="{{url_for('static',filename='js/katex/katex.css')}}">
+	<script defer src="{{url_for('static',filename='js/katex/katex.js')}}"></script>
+    <script defer src="{{url_for('static',filename='js/katex/contrib/auto-render.js')}}" ></script>
+    <script defer>
+        console.log()
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.getElementById('article'), {
+              // customised options
+              // • auto-render specific keys, e.g.:
+              delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false}
+              ],
+              throwOnError : false
+            });
+        });
+    </script>
+    <script src="{{url_for('static',filename='js/marked-4.2.2/marked.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap-5.2.2/dist/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
 </head>
@@ -15,10 +35,7 @@
         </header>
 
         <div class="main">
-            <div class="main-area">
-                {% block main_area %}{% endblock %}
-            </div>
-
+            {% block main %}{% endblock %}
         </div>
         <div class="footer">
             {% block footer %}{% endblock %}
@@ -26,5 +43,7 @@
     </div>
 
 </body>
+
 <script src="{{url_for('static',filename='css/bootstrap-5.2.2/dist/js/bootstrap.js')}}" crossorigin="anonymous"></script>
+
 </html>

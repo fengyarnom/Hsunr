@@ -1,0 +1,49 @@
+{% extends 'header.html' %}
+
+{% block title %}
+  首页
+{% endblock %}
+
+{% block main %}
+    <div class="main-area">
+          <div class="content_main">
+            {% block content_main %}
+
+            {% endblock %}
+          </div>
+
+          <div class="siderbar">
+              <div class="Notice">
+                  {% for item in notice %}
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <div class="header">
+                            <div class="title">{{ item['title']}}</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {{ item['content']}}
+                      </div>
+                  {% endfor %}
+
+            </div>
+            <div class="Tags">
+                <div class="header">
+                    <div class="title">标签</div>
+                </div>
+                <div class="list">
+                    {% for item in tags %}
+                        <a href="">{{item['name']}} <span>{{item['count']}}</span></a>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="recent-posts">
+                <div class="header">
+                    <div class="title">最近的文章</div>
+                </div>
+                {% for item in posts %}
+                    <li><a href="/post/{{ item['pid'] }}">{{ item['title'] }}</a></li>
+                {% endfor %}
+            </div>
+          </>
+         </div>
+{% endblock %}

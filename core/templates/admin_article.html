@@ -1,0 +1,148 @@
+{% extends 'admin.html' %}
+
+{% block table %}
+<div class="AdminArticleList">
+        <div id="warning_box" class="alert alert-warning alert-dismissible fade disvisible" role="alert">
+            <div id="pid" class="{{ post['pid'] }}"></div>
+            <div id="warning_box_text">
+                Default
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="header">
+            <div class="title"><h3>文章管理</h3></div>
+            <a href="/admin/editor"><button type="button" class="btn btn-outline-primary new_post_button" >写一篇新文章</button></a>
+        </div>
+        <div class="content">
+            <table class="table table-hover ">
+              <thead>
+                <tr>
+                  <th scope="col">POST ID</th>
+                  <th scope="col">标题</th>
+                  <th scope="col">标签</th>
+                  <th scope="col">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in post %}
+               <tr>
+                  <th scope="row">{{ item['pid'] }}</th>
+                  <td>{{ item['title'] }}</td>
+                  <td>{{ item['tags'] }}</td>
+                  <td>
+                      <a href="/admin/editor/{{ item['pid'] }}"><button type="button" class="btn btn-primary">修改</button></a>
+                      <button type="button" tag="{{ item['pid'] }}" class="btn btn-danger" onclick="delete_post(this)">删除</button>
+                  </td>
+                </tr>
+              {% endfor %}
+
+              </tbody>
+            </table>
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group me-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-primary disabled" id="previous" onclick="pervious()"> 上一页 </button>
+
+              </div>
+              <div id="page_list" class="btn-group me-2" role="group" aria-label="Second group">
+                <button type="button" class="btn btn-secondary " id="crrent_page">1</button>
+                <button type="button" class="btn btn-secondary" id="anthor_page">......</button>
+                <a class="btn btn-secondary" href="" id="last_page">1</a>
+              </div>
+              <div class="btn-group" role="group" aria-label="Third group">
+                <button type="button" class="btn btn-primary" id="next" onclick="next()"> 下一页 </button>
+              </div>
+            </div>
+        </div>
+</div>
+<script>
+    let args = window.location.href.split("/");
+    let offset = 10;
+
+    let page = 1;
+    let view = "article"
+    for(let i=1;i<=args.length;i++){
+       if(args[i] === "page"){
+           page = parseInt(args[i+1])
+       }else if(args[i] === "admin"){
+           if(args[i+1].length !== 0){
+                view = args[i+1];
+           }
+       }
+    }
+
+    let page_count = parseInt(document.getElementById(view+"_count").innerText)
+    let max_page = Math.ceil(page_count/offset)
+
+    if(view === "article"){
+        document.getElementsByClassName("title").item(0).innerHTML = "文章管理"
+        document.getElementsByClassName("new_post_button").item(0).innerHTML = "写一篇新文章"
+    }
+    else if(view === "daily"){
+        document.getElementsByClassName("title").item(0).innerHTML = "日记管理"
+        document.getElementsByClassName("new_post_button").item(0).innerHTML = "写一篇新日记"
+    }
+    else if(view === "notice"){
+        document.getElementsByClassName("title").item(0).innerHTML = "通告管理"
+        document.getElementsByClassName("new_post_button").item(0).innerHTML = "写一篇新通告"
+    }
+
+
+    document.getElementById("crrent_page").innerText = page
+    document.getElementById("last_page").innerText = max_page
+
+    if(page === 1){
+        document.getElementById("previous").className="btn btn-primary disabled"
+        document.getElementById("next").className="btn btn-primary"
+    }else if(page === max_page){
+        document.getElementById("previous").className="btn btn-primary"
+        document.getElementById("next").className="btn btn-primary disabled"
+    }else{
+        document.getElementById("previous").className="btn btn-primary"
+        document.getElementById("next").className="btn btn-primary"
+    }
+
+
+
+    function pervious() {
+        if(page > 1){
+            page -= 1;
+            window.location.href = "/admin/"+view+"/page/"+page;
+        }
+
+    }
+    function next() {
+        if(page < max_page){
+            page += 1;
+            window.location.href = "/admin/"+view+"/page/"+page;
+        }
+    }
+    
+    function delete_post(e) {
+        var confirm_val=confirm("这是非常危险的操作，确定吗？");
+        if (confirm_val==true){
+            let pid = e.getAttribute('tag')
+            let body = {
+                pid : pid
+            }
+            fetch("/admin/delete/"+pid, {
+                method: "POST",
+                headers: {"Content-type": "application/json;charset=utf-8; charset=UTF-8"},
+                body: JSON.stringify(body)
+            })
+            .then(response => response.json())
+            .then(retrun_data => {
+                if(retrun_data['code'] === 203){
+                    document.getElementById('warning_box').className ="alert alert-success alert-dismissible fade show";
+                    document.getElementById('warning_box_text').innerHTML=
+                         "<strong>删除成功</strong>"
+                    e.parentElement.parentElement.remove()
+                }
+            })
+
+        }
+
+
+    }
+
+</script>
+{% endblock %}

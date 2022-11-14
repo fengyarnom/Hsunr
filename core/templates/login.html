@@ -1,19 +1,79 @@
-{% extends 'main_siderbar.html' %}
+{% extends 'main.html' %}
 
-{% block content_main %}
+{% block main %}
     <div class="login">
 
         <div class="header">
             😸 登录
         </div>
-        <div class="alert alert-success" role="alert">
-          A simple success alert—check it out!
+
+        <div class="alert alert-warning" role="alert">
+          『 莫春者，春服既成，冠者五六人，童子六七人，浴乎沂，风乎舞雩，咏而归 』
+        </div>
+        <div class="alert alert-danger" id="login_input_error" role="alert">
+          用户名或密码为空，请重新输入
         </div>
         <form action="">
-            <div class="text_box">
-                <label>用户名</label>
-                <input type="text">
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="username" placeholder="用户名">
+              <label for="username">用户名</label>
             </div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="password" placeholder="密码">
+              <label for="password">密码</label>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="login()">登录</button>
         </form>
     </div>
+    <script>
+        function input_box_normal() {
+            document.getElementById("username").className = "form-control"
+            document.getElementById("password").className = "form-control"
+        }
+        function input_box_error() {
+            document.getElementById("username").className = "form-control is-invalid"
+            document.getElementById("password").className = "form-control is-invalid"
+        }
+        function login() {
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            if(username === ""||password === ""){
+                input_box_error()
+                document.getElementById("login_input_error").innerText= "用户名或密码为空"
+                document.getElementById("login_input_error").className = "alert alert-danger"
+            }else{
+                input_box_normal()
+                document.getElementById("login_input_error").className = "disvisible"
+                let body = {
+                    username : username,
+                    password : password
+                }
+                fetch("/login/login-check", {
+                    method: "POST",
+                    headers: {"Content-type": "application/json;charset=utf-8; charset=UTF-8"},
+                    body: JSON.stringify(body)
+                })
+                .then(response => response.json())
+                .then(retrun_data => {
+                    if(retrun_data['code'] ===  301){
+                        document.cookie="username="+username;
+                        window.location.replace("/admin");
+                    }
+                    else{
+                        input_box_error();
+                        document.getElementById("login_input_error").innerText= "用户名或密码错误，请重新检查密码"
+                        document.getElementById("login_input_error").className = "alert alert-danger"
+                    }
+
+                });
+                }
+
+
+        }
+
+    </script>
 {% endblock %}

@@ -4,6 +4,7 @@ class PostModle():
         self.conn = get_db()
         self.cursor = self.conn.cursor()
         self.format = ['pid','title','content','tags','author','create_date','views','visible','isTop']
+        self.table_name = "POST"
         if init is True:
             self.init_table()
     def init_table(self):
@@ -13,7 +14,7 @@ class PostModle():
            "content     TEXT                        NOT NULL,"
            "tags        TEXT                        NOT NULL,"
            "author      CHAR(100)                   NOT NULL,"
-           "create_date CHAR(50)                    NOT NULL," 
+           "cr eate_date CHAR(50)                    NOT NULL," 
            "views       INT                         NOT NULL,"
            "visible     INT                         NOT NULL,"    
            "is_top      INT                         NOT NULL);")
@@ -52,17 +53,18 @@ class PostModle():
         return rows
     
     def updateByPid(self,post):
-        sql=("UPDATE POST SET title='{title}',content='{content}',tags='{tags}',is_top='{is_top}' WHERE pid='{pid}';".format(
+        sql=("UPDATE POST SET title='{title}',content='{content}',tags='{tags}',is_top={is_top},visible={visible} WHERE pid='{pid}';".format(
             pid=post['pid'],
             title=post['title'],
             content=post['content'],
             tags=post['tags'],
+            visible=int(post['visible']),
             is_top=int(post['is_top'])
             ))
         self.cursor.execute(sql)
         self.conn.commit()
     
-    def getCount(self):
+    def getCount(self,condition):
         sql = "select count(*) from POST"
         self.cursor.execute(sql)
         count = self.cursor.fetchone()

@@ -1,19 +1,31 @@
-{% extends 'main_siderbar.html' %}
+{% extends 'main_sidebar.html' %}
 
 {% block content_main %}
-    <div class="article">
+    <div id="article">
+        {% for item in posts[:5] %}
         <div class="post">
             <div class="title">
-              <a href=''>你好，世界</a>
+              <a href=''>{{ item['title'] }}</a>
             </div>
             
             <div class="detail">
-                <div class="date">发布时间：2020-04-18</div>
-                <div class="tags">标签分类：Text</div>
+                <div class="date">发布时间：{{ item['create_date'] }}</div>
+                <div class="tags">标签分类：{{ item['tags'] }}</div>
             </div>
-            <div class="content">
-                Hello
+            <div class="content markdown-body-css" >
+                {{ item['content'] }}
             </div>
         </div>
+        {% endfor %}
     </div>
+
+    <script>
+        contents = document.getElementById("article").getElementsByClassName("content");
+        for(let i = 0; i<contents.length; i++){
+
+            contents.item(i).innerHTML = marked.parse(contents.item(i).textContent.trim());
+        }
+
+
+    </script>
 {% endblock %}
