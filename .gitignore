@@ -1,13 +1,13 @@
-venv/
+venv/*
 core/views/__pycache__/*
 
 ./config.json
-.idea/
-__pycache__/
+.idea/*
+__pycache__/*
 
-/core/__pycache__/
-/core/views/__pycache__/
-flask_session/
+/core/__pycache__/*
+/core/views/__pycache__/*
+flask_session/*
 
 *.json
 *.db
