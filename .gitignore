@@ -8,4 +8,5 @@ __pycache__/
 /core/__pycache__/
 /core/views/__pycache__/
 
+*.json
 *.db
