@@ -20,7 +20,6 @@ def create_app():
     # 注册蓝图
     app.register_blueprint(index.bp)
     app.register_blueprint(article.bp)
-    app.register_blueprint(login.bp)
     app.register_blueprint(admin.bp)
 
     app.config['SESSION_TYPE'] = 'filesystem'

@@ -2,7 +2,28 @@
 
 {% block content_main %}
     <div id="article">
-        {% for item in posts[:5] %}
+        <div class="disvisible " id="warring_box" role="alert">
+          这是日常的一些随笔和日记，由于篇幅较短，多是一些生活中吐槽般的只言片语，放于此处。
+        </div>
+        {% for item in top_posts %}
+        <div class="post">
+            <span class="badge text-bg-primary">top</span>
+            <div class="title">
+              <a href=''>{{ item['title'] }}</a>
+
+            </div>
+
+            <div class="detail">
+                <div class="date">发布时间：{{ item['create_date'] }}</div>
+                <div class="tags">标签分类：{{ item['tags'] }}</div>
+            </div>
+            <div class="content markdown-body-css" >
+                {{ item['content'] }}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for item in posts %}
         <div class="post">
             <div class="title">
               <a href=''>{{ item['title'] }}</a>
@@ -22,8 +43,14 @@
     <script>
         contents = document.getElementById("article").getElementsByClassName("content");
         for(let i = 0; i<contents.length; i++){
-
             contents.item(i).innerHTML = marked.parse(contents.item(i).textContent.trim());
+        }
+
+        let args = window.location.href.split("/");
+        for(let i=1;i<=args.length;i++){
+           if(args[i] === "daily"){
+               document.getElementById("warring_box").className="alert alert-warning"
+           }
         }
 
 

@@ -20,6 +20,8 @@
                   <th scope="col">POST ID</th>
                   <th scope="col">标题</th>
                   <th scope="col">标签</th>
+                  <th scope="col">置顶</th>
+                  <th scope="col">可见</th>
                   <th scope="col">操作</th>
                 </tr>
               </thead>
@@ -29,6 +31,8 @@
                   <th scope="row">{{ item['pid'] }}</th>
                   <td>{{ item['title'] }}</td>
                   <td>{{ item['tags'] }}</td>
+                  <td>{{ item['isTop'] }}</td>
+                  <td>{{ item['visible'] }}</td>
                   <td>
                       <a href="/admin/editor/{{ item['pid'] }}"><button type="button" class="btn btn-primary">修改</button></a>
                       <button type="button" tag="{{ item['pid'] }}" class="btn btn-danger" onclick="delete_post(this)">删除</button>

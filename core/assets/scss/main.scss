@@ -197,11 +197,16 @@ code {
         letter-spacing: 1px;
         margin-bottom: 3em;
         padding-bottom: 3em;
+        .badge{
+            padding: 5px 15px;
+            margin-bottom: 1em;
+        }
     .title{
         font-size: 26px;
         font-weight: 700;
         margin-bottom: 0.5em;
         letter-spacing: 1.3px;
+
         a{
             color: #353c5a;
             text-decoration: none;
@@ -247,7 +252,7 @@ code {
         white-space:pre-line;
         color: #3d3d3f;
         font-size: 16px;
-        line-height: 1.7em;
+        line-height: 1.25;
         pre {
             color: white;
             background: rgb(0, 0, 0);
@@ -269,7 +274,9 @@ code {
             box-shadow: black 1px 1px 0.5em inset;
 
         }
-
+        img{
+            width: 60%;
+        }
 
         p{
             margin: 0;
@@ -282,13 +289,28 @@ code {
             margin: 1rem 0;
             padding: 0.25rem 0 0.25rem 1rem;
         }
-        img{
-            max-width: 100%;
-        }
-        li{
-            margin: 0;
+        ol,ul{
+            margin:0;
+            line-height: 1.25;
+            li{
+                margin: 0;
+            }
         }
 
+        hr{
+            color: rgb(0 0 0);
+            display: block;
+            border: 0;
+            margin: 0.5em auto;
+
+        }
+         hr:before {
+             color: rgb(0 0 0);
+             font-size: 1.1em;
+             display: block;
+             content: "* * *";
+             text-align: center;
+         }
 
 
     }
@@ -394,7 +416,48 @@ code {
     }
 
 }
+.ArchiveView{
+    width: 60%;
+    margin-bottom: 5em;
+    .header {
+        margin-bottom: 1em;
+        a{
+            background-color: #3273dc;
+            color: #fff;
+            padding: 7px 15px;
+            border-radius: 3px;
+            font-size: 16px;
+            text-decoration: none;
+        }
 
+    }
+    .content{
+        ul{
+            list-style: none;
+            margin:0;
+            padding: 0;
+            a{
+                display: flex;
+                text-decoration: none;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 1em;
+                span{
+                    color: #7a7a7aad;
+                    font-size: 14px;
+                }
+                div{
+                    font-size: 20px;
+                    padding: 0.3em 0;
+                    font-weight: bold;
+                    letter-spacing: 1.5px;
+                }
+                text-decoration: none;
+            }
+        }
+    }
+}
 .markdown-body-css{
     h1 {
         font-size: 2.2em;

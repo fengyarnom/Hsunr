@@ -167,6 +167,10 @@ code {
   margin-bottom: 3em;
   padding-bottom: 3em;
 }
+#article .post .badge {
+  padding: 5px 15px;
+  margin-bottom: 1em;
+}
 #article .post .title {
   font-size: 26px;
   font-weight: 700;
@@ -213,7 +217,7 @@ code {
   white-space: pre-line;
   color: #3d3d3f;
   font-size: 16px;
-  line-height: 1.7em;
+  line-height: 1.25;
 }
 #article .post .content pre {
   color: white;
@@ -235,6 +239,9 @@ code {
   border-radius: 0.5em;
   box-shadow: black 1px 1px 0.5em inset;
 }
+#article .post .content img {
+  width: 60%;
+}
 #article .post .content p {
   margin: 0;
   line-height: 2.15em;
@@ -246,11 +253,25 @@ code {
   margin: 1rem 0;
   padding: 0.25rem 0 0.25rem 1rem;
 }
-#article .post .content img {
-  max-width: 100%;
-}
-#article .post .content li {
+#article .post .content ol, #article .post .content ul {
   margin: 0;
+  line-height: 1.25;
+}
+#article .post .content ol li, #article .post .content ul li {
+  margin: 0;
+}
+#article .post .content hr {
+  color: rgb(0, 0, 0);
+  display: block;
+  border: 0;
+  margin: 0.5em auto;
+}
+#article .post .content hr:before {
+  color: rgb(0, 0, 0);
+  font-size: 1.1em;
+  display: block;
+  content: "* * *";
+  text-align: center;
 }
 
 .login {
@@ -338,6 +359,46 @@ code {
 .AdminView .main .AdminArticleList .content .btn-toolbar {
   margin: 3em 0;
   justify-content: center;
+}
+
+.ArchiveView {
+  width: 60%;
+  margin-bottom: 5em;
+}
+.ArchiveView .header {
+  margin-bottom: 1em;
+}
+.ArchiveView .header a {
+  background-color: #3273dc;
+  color: #fff;
+  padding: 7px 15px;
+  border-radius: 3px;
+  font-size: 16px;
+  text-decoration: none;
+}
+.ArchiveView .content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ArchiveView .content ul a {
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1em;
+  text-decoration: none;
+}
+.ArchiveView .content ul a span {
+  color: rgba(122, 122, 122, 0.6784313725);
+  font-size: 14px;
+}
+.ArchiveView .content ul a div {
+  font-size: 20px;
+  padding: 0.3em 0;
+  font-weight: bold;
+  letter-spacing: 1.5px;
 }
 
 .markdown-body-css {

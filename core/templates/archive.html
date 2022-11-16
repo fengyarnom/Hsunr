@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+{% block title %}
+  编辑器
+{% endblock %}
+{% block main %}
+  <div class="ArchiveView">
+    {% for item in archive_list %}
+    <div class="block">
+      <div class="header">
+        <a href="#">{{item['year']}}</a>
+      </div>
+      {% for j in item['data'] %}
+      <div class="content">
+        <ul>
+          <a href=""><span>{{j['create_date']}}</span><div>{{j['title']}}</div></a>
+        </ul>
+      </div>
+      {% endfor%}
+    </div>
+    {% endfor%}
+  </div>
+{% endblock %}

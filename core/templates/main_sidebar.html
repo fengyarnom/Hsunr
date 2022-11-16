@@ -31,7 +31,7 @@
                 </div>
                 <div class="list">
                     {% for item in tags %}
-                        <a href="">{{item['name']}} <span>{{item['count']}}</span></a>
+                        <a href="/archive/tag/{{item['name']}}">{{item['name']}} <span>{{item['count']}}</span></a>
                     {% endfor %}
 
                 </div>
@@ -40,10 +40,10 @@
                 <div class="header">
                     <div class="title">最近的文章</div>
                 </div>
-                {% for item in posts %}
+                {% for item in recent_posts %}
                     <li><a href="/post/{{ item['pid'] }}">{{ item['title'] }}</a></li>
                 {% endfor %}
             </div>
-          </>
+          </div>
          </div>
 {% endblock %}
