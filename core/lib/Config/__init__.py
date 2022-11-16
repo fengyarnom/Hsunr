@@ -21,7 +21,9 @@ def is_config_file_exists(config_file):
 
 def init_config_file(config_file):
     config_content = {
-        "proj_name": "Hsunr"
+        "proj_name": "Hsunr",
+        "host": "127.0.1",
+        "port": "5000"
     }
     json_object = json.dumps(config_content)
     with open(config_file, "w") as f:

@@ -5,7 +5,7 @@ import os
 import click
 from flask import Flask,session
 from .views import index, article,login,admin
-from .lib.Config import check_config
+from .lib.Config import check_config,get_config
 from .lib.Db import check_database,init_db
 from flask_session import Session
 @click.group()
@@ -32,12 +32,12 @@ def create_app():
 def run_app(config_file):
     app = create_app()
 
-
     check_config(config_file)
     check_database(config_file)
     click.echo(" * 启动成功：")
 
-    app.run(debug=True)
+    config = get_config(config_file)
+    app.run(debug=True,port=config['port'],host=config['host'])
 
 # 注册命令
 run.add_command(run_app)

@@ -11,11 +11,15 @@
                 <li><a href="/">首页</a></li>
                 <li><a href="/daily">日记</a></li>
                 <li><a href="/archive/date">归档</a></li>
-
+                <li id="login_mobi" style="display:none"><a href="/admin/login">登录</a></li>
             </div>
             <div class="option">
                 <a href="/admin/login">登录</a>
             </div>
         </div>
-
+        <script>
+            if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
+                document.getElementById("login_mobi").style="display:flex"
+            }
+        </script>
 {% endblock %}
