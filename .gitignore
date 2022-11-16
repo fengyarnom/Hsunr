@@ -1,7 +1,9 @@
 venv/
-.idea
-core/views/__pycache__/
+core/views/__pycache__/*
 
 ./config.json
 .idea/
 __pycache__/
+
+/core/__pycache__/
+/core/views/__pycache__/
